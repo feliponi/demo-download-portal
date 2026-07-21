@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ACME Software Support Portal</title>
+  <title>Customer Payment Portal</title>
 
   <style>
     :root {
       --primary: #003b71;
       --primary-dark: #002747;
-      --accent: #00a3e0;
+      --accent: #0078d4;
       --background: #f4f6f8;
       --card: #ffffff;
       --text: #1f2933;
       --muted: #6b7280;
       --border: #d9dee5;
       --success: #0f766e;
+      --warning: #b45309;
     }
 
     * {
@@ -32,7 +33,7 @@
     header {
       background: var(--primary);
       color: white;
-      padding: 20px 40px;
+      padding: 22px 40px;
     }
 
     header h1 {
@@ -47,13 +48,13 @@
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1150px;
       margin: 30px auto;
       padding: 0 20px;
     }
 
     .login-box {
-      max-width: 420px;
+      max-width: 430px;
       margin: 80px auto;
       background: white;
       border: 1px solid var(--border);
@@ -87,7 +88,7 @@
       cursor: pointer;
       border: none;
       border-radius: 6px;
-      padding: 10px 16px;
+      padding: 9px 14px;
       font-size: 14px;
       font-weight: bold;
     }
@@ -101,14 +102,14 @@
       background: var(--primary-dark);
     }
 
-    .btn-secondary {
-      background: #e5eef7;
-      color: var(--primary);
-    }
-
     .btn-download {
       background: var(--success);
       color: white;
+    }
+
+    .btn-secondary {
+      background: #e5eef7;
+      color: var(--primary);
     }
 
     .full-width {
@@ -116,19 +117,16 @@
       margin-top: 24px;
     }
 
-    .toolbar {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 16px;
-      margin-bottom: 25px;
+    .hidden {
+      display: none;
     }
 
     .welcome {
       background: white;
       border: 1px solid var(--border);
-      padding: 20px;
+      padding: 22px;
       border-radius: 10px;
-      margin-bottom: 25px;
+      margin-bottom: 24px;
     }
 
     .welcome h2 {
@@ -136,50 +134,95 @@
       color: var(--primary);
     }
 
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
+    .notice {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #7c2d12;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      font-size: 14px;
     }
 
-    .card {
-      background: var(--card);
+    .toolbar {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 25px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .summary-card {
+      background: white;
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 22px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      padding: 18px;
     }
 
-    .card h3 {
-      margin-top: 0;
+    .summary-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .summary-card strong {
+      font-size: 22px;
       color: var(--primary);
     }
 
-    .meta {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 18px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
     }
 
-    .tag {
+    th {
+      background: #e5eef7;
+      color: var(--primary);
+      text-align: left;
+      padding: 13px;
+      font-size: 13px;
+    }
+
+    td {
+      padding: 13px;
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    .badge {
       display: inline-block;
-      background: #e0f2fe;
-      color: #0369a1;
       padding: 4px 8px;
       border-radius: 999px;
       font-size: 12px;
-      margin-bottom: 12px;
+      font-weight: bold;
     }
 
-    .actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+    .badge-payment {
+      background: #dbeafe;
+      color: #1d4ed8;
     }
 
-    .hidden {
-      display: none;
+    .badge-remittance {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge-soa {
+      background: #fef3c7;
+      color: #92400e;
     }
 
     footer {
@@ -189,9 +232,13 @@
       padding: 30px;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 760px) {
       .toolbar {
         grid-template-columns: 1fr;
+      }
+
+      table {
+        font-size: 12px;
       }
 
       header {
@@ -205,11 +252,11 @@
 
   <!-- LOGIN SCREEN -->
   <section id="loginScreen" class="login-box">
-    <h2>ACME Software Support Portal</h2>
-    <p>Please sign in to access customer downloads.</p>
+    <h2>Customer Payment Portal</h2>
+    <p>Please sign in to access payment documents and remittance files.</p>
 
     <label for="email">Email</label>
-    <input id="email" type="email" value="luiz.feliponi@customer.com" />
+    <input id="email" type="email" value="demo.user@example.com" />
 
     <label for="password">Password</label>
     <input id="password" type="password" value="demo123" />
@@ -226,8 +273,8 @@
   <section id="portalScreen" class="hidden">
 
     <header>
-      <h1>ACME Software Support Portal</h1>
-      <p>Customer Download Center | Licensed Products | Documentation | Patches</p>
+      <h1>Customer Payment Portal</h1>
+      <p>Payment Files | Remittance Advices | Statements | Download Center</p>
     </header>
 
     <main class="container">
@@ -235,107 +282,185 @@
       <div class="welcome">
         <h2>Welcome, Luiz Feliponi</h2>
         <p>
-          Below you can find the latest software packages, release notes,
-          technical documentation and patch files available for your organization.
+          This portal provides access to payment-related documents issued for your customer account.
+          Use the filters below to locate payment files, remittance advices, and monthly statements.
         </p>
       </div>
+
+      <div class="notice">
+        <strong>Demo notice:</strong> All files, company names, bank references, document numbers,
+        and payment amounts are fictitious and generated only for AI agent demonstration purposes.
+      </div>
+
+      <section class="summary-grid">
+        <div class="summary-card">
+          <span>Open Payment Batches</span>
+          <strong>4</strong>
+        </div>
+
+        <div class="summary-card">
+          <span>Available Remittance Advices</span>
+          <strong>7</strong>
+        </div>
+
+        <div class="summary-card">
+          <span>Latest Payment Run</span>
+          <strong>2026-07-18</strong>
+        </div>
+
+        <div class="summary-card">
+          <span>Customer Account</span>
+          <strong>CUST-100452</strong>
+        </div>
+      </section>
 
       <div class="toolbar">
         <input
           id="searchInput"
           type="text"
-          placeholder="Search downloads, e.g. Master Data, Analytics, Patch..."
-          oninput="filterProducts()"
+          placeholder="Search by file name, document number, payment batch..."
+          oninput="filterDocuments()"
         />
 
-        <select id="categoryFilter" onchange="filterProducts()">
-          <option value="all">All Categories</option>
-          <option value="software">Software</option>
-          <option value="documentation">Documentation</option>
-          <option value="patch">Patches</option>
+        <select id="typeFilter" onchange="filterDocuments()">
+          <option value="all">All Document Types</option>
+          <option value="payment">Payment Files</option>
+          <option value="remittance">Remittance Advices</option>
+          <option value="statement">Statements</option>
+        </select>
+
+        <select id="periodFilter" onchange="filterDocuments()">
+          <option value="all">All Periods</option>
+          <option value="2026-07">July 2026</option>
+          <option value="2026-06">June 2026</option>
+          <option value="2026-05">May 2026</option>
         </select>
       </div>
 
-      <section class="products">
+      <table>
+        <thead>
+          <tr>
+            <th>Document Type</th>
+            <th>File Name</th>
+            <th>Document No.</th>
+            <th>Payment Date</th>
+            <th>Amount</th>
+            <th>Format</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-        <article class="card product" data-title="analytics suite 2026" data-category="software">
-          <span class="tag">Software</span>
-          <h3>Analytics Suite 2026</h3>
-          <div class="meta">
-            Version: 6.4.1<br />
-            Release Date: 2026-07-12<br />
-            File: analytics-suite-2026-v641.zip
-          </div>
-          <div class="actions">
-            <button class="btn-secondary" onclick="downloadFile('Analytics Suite 2026 - Release Notes', 'release-notes-analytics-suite-2026.txt')">
-              Release Notes
-            </button>
-            <button class="btn-download" onclick="downloadFile('Analytics Suite 2026 Package', 'analytics-suite-2026-v641.zip')">
-              Download Package
-            </button>
-          </div>
-        </article>
+        <tbody>
 
-        <article class="card product" data-title="master data accelerator" data-category="software">
-          <span class="tag">Software</span>
-          <h3>Master Data Accelerator</h3>
-          <div class="meta">
-            Version: 3.1.0<br />
-            Release Date: 2026-06-28<br />
-            File: master-data-accelerator-v310.zip
-          </div>
-          <div class="actions">
-            <button class="btn-secondary" onclick="downloadFile('Master Data Accelerator Documentation', 'master-data-accelerator-documentation.pdf')">
-              Documentation
-            </button>
-            <button class="btn-download" onclick="downloadFile('Master Data Accelerator Package', 'master-data-accelerator-v310.zip')">
-              Download Package
-            </button>
-          </div>
-        </article>
+          <tr class="document-row"
+              data-title="payment file batch pf-2026-0718 sepa xml"
+              data-type="payment"
+              data-period="2026-07">
+            <td><span class="badge badge-payment">Payment File</span></td>
+            <td>payment-file-batch-PF-2026-0718.xml</td>
+            <td>PF-2026-0718</td>
+            <td>2026-07-18</td>
+            <td>EUR 84,250.75</td>
+            <td>XML</td>
+            <td>
+              <button class="btn-download" onclick="downloadPaymentFile('payment-file-batch-PF-2026-0718.xml')">
+                Download
+              </button>
+            </td>
+          </tr>
 
-        <article class="card product" data-title="integration connector pack" data-category="patch">
-          <span class="tag">Patch</span>
-          <h3>Integration Connector Pack</h3>
-          <div class="meta">
-            Version: 2.8.5<br />
-            Release Date: 2026-07-01<br />
-            File: integration-connector-pack-v285.zip
-          </div>
-          <div class="actions">
-            <button class="btn-secondary" onclick="downloadFile('Integration Connector Pack Patch Notes', 'integration-connector-patch-notes.txt')">
-              Patch Notes
-            </button>
-            <button class="btn-download" onclick="downloadFile('Integration Connector Pack', 'integration-connector-pack-v285.zip')">
-              Download Patch
-            </button>
-          </div>
-        </article>
+          <tr class="document-row"
+              data-title="remittance advice ra-2026-0718 customer payment pdf"
+              data-type="remittance"
+              data-period="2026-07">
+            <td><span class="badge badge-remittance">Remittance Advice</span></td>
+            <td>remittance-advice-RA-2026-0718.pdf</td>
+            <td>RA-2026-0718</td>
+            <td>2026-07-18</td>
+            <td>EUR 84,250.75</td>
+            <td>PDF</td>
+            <td>
+              <button class="btn-download" onclick="downloadRemittanceAdvice('remittance-advice-RA-2026-0718.pdf')">
+                Download
+              </button>
+            </td>
+          </tr>
 
-        <article class="card product" data-title="customer finance adapter documentation" data-category="documentation">
-          <span class="tag">Documentation</span>
-          <h3>Customer Finance Adapter</h3>
-          <div class="meta">
-            Version: 1.9.2<br />
-            Release Date: 2026-05-19<br />
-            File: customer-finance-adapter-guide.pdf
-          </div>
-          <div class="actions">
-            <button class="btn-secondary" onclick="downloadFile('Customer Finance Adapter Guide', 'customer-finance-adapter-guide.pdf')">
-              Documentation
-            </button>
-            <button class="btn-download" onclick="downloadFile('Customer Finance Adapter Config Template', 'customer-finance-adapter-template.xlsx')">
-              Download Template
-            </button>
-          </div>
-        </article>
+          <tr class="document-row"
+              data-title="remittance advice ra-2026-0715 pdf"
+              data-type="remittance"
+              data-period="2026-07">
+            <td><span class="badge badge-remittance">Remittance Advice</span></td>
+            <td>remittance-advice-RA-2026-0715.pdf</td>
+            <td>RA-2026-0715</td>
+            <td>2026-07-15</td>
+            <td>EUR 42,900.10</td>
+            <td>PDF</td>
+            <td>
+              <button class="btn-download" onclick="downloadRemittanceAdvice('remittance-advice-RA-2026-0715.pdf')">
+                Download
+              </button>
+            </td>
+          </tr>
 
-      </section>
+          <tr class="document-row"
+              data-title="payment file batch pf-2026-0705 csv"
+              data-type="payment"
+              data-period="2026-07">
+            <td><span class="badge badge-payment">Payment File</span></td>
+            <td>payment-file-batch-PF-2026-0705.csv</td>
+            <td>PF-2026-0705</td>
+            <td>2026-07-05</td>
+            <td>EUR 19,482.30</td>
+            <td>CSV</td>
+            <td>
+              <button class="btn-download" onclick="downloadPaymentFile('payment-file-batch-PF-2026-0705.csv')">
+                Download
+              </button>
+            </td>
+          </tr>
+
+          <tr class="document-row"
+              data-title="statement of account soa june 2026"
+              data-type="statement"
+              data-period="2026-06">
+            <td><span class="badge badge-soa">Statement</span></td>
+            <td>statement-of-account-2026-06.pdf</td>
+            <td>SOA-2026-06</td>
+            <td>2026-06-30</td>
+            <td>EUR 126,004.85</td>
+            <td>PDF</td>
+            <td>
+              <button class="btn-download" onclick="downloadStatement('statement-of-account-2026-06.pdf')">
+                Download
+              </button>
+            </td>
+          </tr>
+
+          <tr class="document-row"
+              data-title="remittance advice ra-2026-0621 pdf"
+              data-type="remittance"
+              data-period="2026-06">
+            <td><span class="badge badge-remittance">Remittance Advice</span></td>
+            <td>remittance-advice-RA-2026-0621.pdf</td>
+            <td>RA-2026-0621</td>
+            <td>2026-06-21</td>
+            <td>EUR 58,720.00</td>
+            <td>PDF</td>
+            <td>
+              <button class="btn-download" onclick="downloadRemittanceAdvice('remittance-advice-RA-2026-0621.pdf')">
+                Download
+              </button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
 
     </main>
 
     <footer>
-      ACME Software Support Portal — Demo Download Center
+      Customer Payment Portal — Demo Environment
     </footer>
 
   </section>
@@ -347,34 +472,88 @@
       document.getElementById("portalScreen").classList.remove("hidden");
     }
 
-    function filterProducts() {
+    function filterDocuments() {
       const search = document.getElementById("searchInput").value.toLowerCase();
-      const category = document.getElementById("categoryFilter").value;
-      const products = document.querySelectorAll(".product");
+      const type = document.getElementById("typeFilter").value;
+      const period = document.getElementById("periodFilter").value;
+      const rows = document.querySelectorAll(".document-row");
 
-      products.forEach(product => {
-        const title = product.dataset.title;
-        const productCategory = product.dataset.category;
+      rows.forEach(row => {
+        const title = row.dataset.title;
+        const documentType = row.dataset.type;
+        const documentPeriod = row.dataset.period;
 
         const matchesSearch = title.includes(search);
-        const matchesCategory = category === "all" || productCategory === category;
+        const matchesType = type === "all" || documentType === type;
+        const matchesPeriod = period === "all" || documentPeriod === period;
 
-        if (matchesSearch && matchesCategory) {
-          product.style.display = "block";
-        } else {
-          product.style.display = "none";
-        }
+        row.style.display = matchesSearch && matchesType && matchesPeriod ? "" : "none";
       });
     }
 
-    function downloadFile(content, filename) {
-      const demoContent =
-        "This is a simulated download file for AI Agent demonstration.\n\n" +
-        "File name: " + filename + "\n" +
-        "Content: " + content + "\n" +
-        "Generated by ACME Software Support Portal Demo.\n";
+    function downloadPaymentFile(filename) {
+      const content =
+        "PAYMENT FILE - DEMO ONLY\n" +
+        "====================================\n" +
+        "File Name: " + filename + "\n" +
+        "Customer Account: CUST-100452\n" +
+        "Payment Batch: " + filename.split(".")[0] + "\n" +
+        "Payment Method: Bank Transfer\n" +
+        "Currency: EUR\n" +
+        "Status: Released for Payment\n\n" +
+        "Line Items:\n" +
+        "Invoice,Vendor,Amount,Currency,DueDate\n" +
+        "INV-900152,Demo Supplier GmbH,12500.00,EUR,2026-07-18\n" +
+        "INV-900153,Example Components Ltd,46200.75,EUR,2026-07-18\n" +
+        "INV-900154,Sample Logistics AG,25550.00,EUR,2026-07-18\n\n" +
+        "This file was generated by the Customer Payment Portal demo.\n" +
+        "No real payment data is included.";
 
-      const blob = new Blob([demoContent], { type: "text/plain" });
+      downloadBlob(content, filename);
+    }
+
+    function downloadRemittanceAdvice(filename) {
+      const content =
+        "REMITTANCE ADVICE - DEMO ONLY\n" +
+        "====================================\n" +
+        "File Name: " + filename + "\n" +
+        "Customer Account: CUST-100452\n" +
+        "Payer: ACME Manufacturing Group\n" +
+        "Payee: Demo Supplier GmbH\n" +
+        "Payment Date: 2026-07-18\n" +
+        "Payment Reference: PAY-2026-0718-001\n" +
+        "Currency: EUR\n\n" +
+        "Invoices Paid:\n" +
+        "Invoice No. | Invoice Date | Gross Amount | Discount | Paid Amount\n" +
+        "INV-900152 | 2026-06-30 | 12,500.00 | 0.00 | 12,500.00\n" +
+        "INV-900153 | 2026-07-02 | 46,200.75 | 0.00 | 46,200.75\n" +
+        "INV-900154 | 2026-07-05 | 25,550.00 | 0.00 | 25,550.00\n\n" +
+        "Total Paid: EUR 84,250.75\n\n" +
+        "This remittance advice was generated by the Customer Payment Portal demo.\n" +
+        "No real financial, supplier, customer, or payment data is included.";
+
+      downloadBlob(content, filename);
+    }
+
+    function downloadStatement(filename) {
+      const content =
+        "STATEMENT OF ACCOUNT - DEMO ONLY\n" +
+        "====================================\n" +
+        "File Name: " + filename + "\n" +
+        "Customer Account: CUST-100452\n" +
+        "Statement Period: 2026-06\n" +
+        "Opening Balance: EUR 0.00\n" +
+        "Total Invoices: EUR 126,004.85\n" +
+        "Total Payments: EUR 126,004.85\n" +
+        "Closing Balance: EUR 0.00\n\n" +
+        "This statement was generated by the Customer Payment Portal demo.\n" +
+        "No real account data is included.";
+
+      downloadBlob(content, filename);
+    }
+
+    function downloadBlob(content, filename) {
+      const blob = new Blob([content], { type: "text/plain" });
       const url = URL.createObjectURL(blob);
 
       const link = document.createElement("a");
