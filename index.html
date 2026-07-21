@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACME Software Support Portal</title>
+
+  <style>
+    :root {
+      --primary: #003b71;
+      --primary-dark: #002747;
+      --accent: #00a3e0;
+      --background: #f4f6f8;
+      --card: #ffffff;
+      --text: #1f2933;
+      --muted: #6b7280;
+      --border: #d9dee5;
+      --success: #0f766e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 20px 40px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    header p {
+      margin: 6px 0 0;
+      color: #dbeafe;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .login-box {
+      max-width: 420px;
+      margin: 80px auto;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+
+    .login-box h2 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 11px;
+      margin-top: 6px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: #e5eef7;
+      color: var(--primary);
+    }
+
+    .btn-download {
+      background: var(--success);
+      color: white;
+    }
+
+    .full-width {
+      width: 100%;
+      margin-top: 24px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+      margin-bottom: 25px;
+    }
+
+    .welcome {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+    }
+
+    .welcome h2 {
+      margin: 0 0 8px;
+      color: var(--primary);
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 30px;
+    }
+
+    @media (max-width: 720px) {
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 18px 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <section id="loginScreen" class="login-box">
+    <h2>ACME Software Support Portal</h2>
+    <p>Please sign in to access customer downloads.</p>
+
+    <label for="email">Email</label>
+    <input id="email" type="email" value="luiz.feliponi@customer.com" />
+
+    <label for="password">Password</label>
+    <input id="password" type="password" value="demo123" />
+
+    <button class="btn-primary full-width" onclick="login()">Sign In</button>
+
+    <p style="font-size: 12px; color: #6b7280; margin-top: 18px;">
+      Demo environment only. Any email/password will work.
+    </p>
+  </section>
+
+
+  <!-- PORTAL SCREEN -->
+  <section id="portalScreen" class="hidden">
+
+    <header>
+      <h1>ACME Software Support Portal</h1>
+      <p>Customer Download Center | Licensed Products | Documentation | Patches</p>
+    </header>
+
+    <main class="container">
+
+      <div class="welcome">
+        <h2>Welcome, Luiz Feliponi</h2>
+        <p>
+          Below you can find the latest software packages, release notes,
+          technical documentation and patch files available for your organization.
+        </p>
+      </div>
+
+      <div class="toolbar">
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search downloads, e.g. Master Data, Analytics, Patch..."
+          oninput="filterProducts()"
+        />
+
+        <select id="categoryFilter" onchange="filterProducts()">
+          <option value="all">All Categories</option>
+          <option value="software">Software</option>
+          <option value="documentation">Documentation</option>
+          <option value="patch">Patches</option>
+        </select>
+      </div>
+
+      <section class="products">
+
+        <article class="card product" data-title="analytics suite 2026" data-category="software">
+          <span class="tag">Software</span>
+          <h3>Analytics Suite 2026</h3>
+          <div class="meta">
+            Version: 6.4.1<br />
+            Release Date: 2026-07-12<br />
+            File: analytics-suite-2026-v641.zip
+          </div>
+          <div class="actions">
+            <button class="btn-secondary" onclick="downloadFile('Analytics Suite 2026 - Release Notes', 'release-notes-analytics-suite-2026.txt')">
+              Release Notes
+            </button>
+            <button class="btn-download" onclick="downloadFile('Analytics Suite 2026 Package', 'analytics-suite-2026-v641.zip')">
+              Download Package
+            </button>
+          </div>
+        </article>
+
+        <article class="card product" data-title="master data accelerator" data-category="software">
+          <span class="tag">Software</span>
+          <h3>Master Data Accelerator</h3>
+          <div class="meta">
+            Version: 3.1.0<br />
+            Release Date: 2026-06-28<br />
+            File: master-data-accelerator-v310.zip
+          </div>
+          <div class="actions">
+            <button class="btn-secondary" onclick="downloadFile('Master Data Accelerator Documentation', 'master-data-accelerator-documentation.pdf')">
+              Documentation
+            </button>
+            <button class="btn-download" onclick="downloadFile('Master Data Accelerator Package', 'master-data-accelerator-v310.zip')">
+              Download Package
+            </button>
+          </div>
+        </article>
+
+        <article class="card product" data-title="integration connector pack" data-category="patch">
+          <span class="tag">Patch</span>
+          <h3>Integration Connector Pack</h3>
+          <div class="meta">
+            Version: 2.8.5<br />
+            Release Date: 2026-07-01<br />
+            File: integration-connector-pack-v285.zip
+          </div>
+          <div class="actions">
+            <button class="btn-secondary" onclick="downloadFile('Integration Connector Pack Patch Notes', 'integration-connector-patch-notes.txt')">
+              Patch Notes
+            </button>
+            <button class="btn-download" onclick="downloadFile('Integration Connector Pack', 'integration-connector-pack-v285.zip')">
+              Download Patch
+            </button>
+          </div>
+        </article>
+
+        <article class="card product" data-title="customer finance adapter documentation" data-category="documentation">
+          <span class="tag">Documentation</span>
+          <h3>Customer Finance Adapter</h3>
+          <div class="meta">
+            Version: 1.9.2<br />
+            Release Date: 2026-05-19<br />
+            File: customer-finance-adapter-guide.pdf
+          </div>
+          <div class="actions">
+            <button class="btn-secondary" onclick="downloadFile('Customer Finance Adapter Guide', 'customer-finance-adapter-guide.pdf')">
+              Documentation
+            </button>
+            <button class="btn-download" onclick="downloadFile('Customer Finance Adapter Config Template', 'customer-finance-adapter-template.xlsx')">
+              Download Template
+            </button>
+          </div>
+        </article>
+
+      </section>
+
+    </main>
+
+    <footer>
+      ACME Software Support Portal — Demo Download Center
+    </footer>
+
+  </section>
+
+
+  <script>
+    function login() {
+      document.getElementById("loginScreen").classList.add("hidden");
+      document.getElementById("portalScreen").classList.remove("hidden");
+    }
+
+    function filterProducts() {
+      const search = document.getElementById("searchInput").value.toLowerCase();
+      const category = document.getElementById("categoryFilter").value;
+      const products = document.querySelectorAll(".product");
+
+      products.forEach(product => {
+        const title = product.dataset.title;
+        const productCategory = product.dataset.category;
+
+        const matchesSearch = title.includes(search);
+        const matchesCategory = category === "all" || productCategory === category;
+
+        if (matchesSearch && matchesCategory) {
+          product.style.display = "block";
+        } else {
+          product.style.display = "none";
+        }
+      });
+    }
+
+    function downloadFile(content, filename) {
+      const demoContent =
+        "This is a simulated download file for AI Agent demonstration.\n\n" +
+        "File name: " + filename + "\n" +
+        "Content: " + content + "\n" +
+        "Generated by ACME Software Support Portal Demo.\n";
+
+      const blob = new Blob([demoContent], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
+</body>
+</html>
